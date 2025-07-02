@@ -1,0 +1,93 @@
+services:
+  backend-for-frontend:
+    build:
+      context: services/backend-for-frontend-nodejs
+      dockerfile: Dockerfile
+      platforms:
+        # this is useful for pushing to Dockerhub, not for local builds
+        - linux/amd64
+        - linux/arm64
+    image: backend-for-frontend-nodejs:latest
+    ports:
+      - "10115:10115" # Expose the port your Express app is listening on
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT
+      - OTEL_EXPORTER_OTLP_HEADERS
+      - OTEL_SERVICE_NAME=backend-for-frontend-nodejs
+      - OTEL_SEMCONV_STABILITY_OPT_IN
+
+  image-picker:
+    build:
+      context: services/image-picker-nodejs
+      dockerfile: Dockerfile
+      platforms:
+        - linux/amd64
+        - linux/arm64
+    image: image-picker-nodejs:latest
+    ports:
+      - "10116:10116"
+    environment:
+      - BUCKET_NAME
+      - OTEL_EXPORTER_OTLP_ENDPOINT
+      - OTEL_EXPORTER_OTLP_HEADERS
+      - OTEL_SERVICE_NAME=image-picker-nodejs
+      - OTEL_SEMCONV_STABILITY_OPT_IN
+
+  meminator:
+    build:
+      context: services/meminator-nodejs
+      dockerfile: Dockerfile
+      platforms:
+        - linux/amd64
+        - linux/arm64
+    image: meminator-nodejs:latest
+    ports:
+      - "10117:10117"
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT
+      - OTEL_EXPORTER_OTLP_HEADERS
+      - OTEL_SERVICE_NAME=meminator-nodejs
+      - OTEL_SEMCONV_STABILITY_OPT_IN
+
+  phrase-picker:
+    build:
+      context: services/phrase-picker-nodejs
+      dockerfile: Dockerfile
+      platforms:
+        - linux/amd64
+        - linux/arm64
+    image: phrase-picker-nodejs:latest
+    ports:
+      - "10118:10118"
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT
+      - OTEL_EXPORTER_OTLP_HEADERS
+      - OTEL_SERVICE_NAME=phrase-picker-nodejs
+      - OTEL_SEMCONV_STABILITY_OPT_IN
+
+  web:
+    build:
+      context: services/web
+      dockerfile: Dockerfile
+      args:
+        HONEYCOMB_API_KEY: ${HONEYCOMB_API_KEY}
+      platforms:
+        - linux/amd64
+        - linux/arm64
+    image: web:latest
+    # volumes: # uncomment this for faster development on the frontend
+    #   - ./services/web/dist:/usr/share/nginx/html # Mount directory containing static files -- only do this for development
+    ports:
+      - "8080:80" # Expose port 8080 for Nginx
+      - "10114:10114"
+
+  otel-collector:
+    image: otel/opentelemetry-collector:0.110.0
+    ports:
+      - "4317:4317" # OpenTelemetry gRPC
+      - "4318:4318" # OpenTelemetry HTTP
+    volumes:
+      - ./services/otel-collector/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    command: [ "--config=/etc/otel-collector-config.yaml" ]
+    environment:
+      - HONEYCOMB_API_KEY

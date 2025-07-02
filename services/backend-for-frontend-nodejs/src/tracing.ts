@@ -1,0 +1,47 @@
+// Answer Key Directions
+// The Instrumenting with Node.js Using OpenTelemetry course on Honeycomb Academy gives you instructions on making code changes to this repository to implement instrumentation to the backend-for-frontend service.
+// The code changes are commented out.
+// Each code change includes a reference back to the activity in the course that contains instructions for the code change.
+
+// tracing.ts
+// Step 3 of Automatic Instrumentation with OpenTelemetry for a Node.js Service. Create the tracing.ts file.
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
+import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-proto";
+import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+// Step 2 of Add Resource Attributes. Import the resource library and semantic conventions libraries from OpenTelemetry
+// import { resourceFromAttributes } from '@opentelemetry/resources'
+// import { ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';
+// import { ATTR_SERVICE_NAMESPACE, ATTR_SERVICE_INSTANCE_ID } from './semconv';
+
+diag.setLogger(new DiagConsoleLogger(),DiagLogLevel.INFO);
+
+// The Trace Exporter exports the data to Honeycomb and uses
+// environment variables for endpoint, service name, and API Key.
+const traceExporter = new OTLPTraceExporter();
+
+const sdk = new NodeSDK({
+    // Step 3 of Add Resource Attributes. Add the resource attribute in the SDK
+        // resource: resourceFromAttributes({
+        //     [ "service.namespace" ]: "yourNameSpace",
+        //     [ ATTR_SERVICE_VERSION ]: "1.0",
+        //     [ "service.instance.id" ]: "my-instance-id-1",
+        //   }),
+    traceExporter,
+    // spanProcessors: [new ConfigurationSpanProcessor(), new BatchSpanProcessor(traceExporter)], // INSTRUMENTATION: report global configuration on every span
+    instrumentations: [getNodeAutoInstrumentations(
+        { '@opentelemetry/instrumentation-fs': { enabled: true } } // the fs tracing might be interesting here!
+    )]
+});
+
+sdk.start();
+
+console.log("Started OpenTelemetry SDK");
+
+// gracefully shut down the SDK on process exit
+process.on('SIGTERM', () => {
+    sdk.shutdown()
+      .then(() => console.log('Tracing terminated'))
+      .catch((error) => console.log('Error terminating tracing', error))
+      .finally(() => process.exit(0));
+  });
