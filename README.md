@@ -10,13 +10,13 @@ It generates images by combining a randomly chosen picture with a randomly chose
 
 ## Introduction
 
-Hello! Welcome to the **Instrumenting with Node.js** course lab.
+Hello! Welcome to the **Instrumenting with Browser** lab.
 
 1. Take a look at this app. The `backend-for-frontend` service needs to be instrumented.
 2. Before you can do that, you need to run this app.
 3. Then, connect this app to Honeycomb.
 4. See what the traces look like.
-5. Improve the traces.
+5. Improve the traces to see end-to-end, fullstack traces.
 
 ## Running the application
 
@@ -45,7 +45,7 @@ You also have the option to run this application locally.
 First, clone this repository.
 
 ```bash
-git clone https://github.com/honeycombio/academy-instrumentation-nodejs
+git clone https://github.com/honeycombio/academy-instrumentation-browser
 ```
 
 Install Docker: https://docs.docker.com/get-docker/
