@@ -1,10 +1,10 @@
 import './App.css'
+import Meminator from './Meminator'
 
 function App() {
 
   return (
-    <h1>Meminator</h1>
-
+    <Meminator></Meminator>
   )
 }
 
