@@ -84,13 +84,13 @@ app.post('/createPicture', async (req: Request, res: Response) => {
         createPictureSpan.recordException(error as Error);
         createPictureSpan.addEvent('error-event', { error: (error as Error).message });
 
-        // to handle TS type safety for adding span statuses
-        if (error instanceof Error) {
+    // to handle TS type safety for adding span statuses
+    if (error instanceof Error) {
         createPictureSpan.setStatus({ code: SpanStatusCode.ERROR, message: error.message })
         createPictureSpan.recordException(error)
     } else {
         createPictureSpan.setStatus({ code: SpanStatusCode.ERROR, message: "some non-error message" + error })
-}
+    }
         console.error('Error creating picture:', error);
         res.status(500).send('Internal Server Error');
     }
@@ -113,3 +113,4 @@ app.listen(PORT, () => {
    }
     res.status(200).send("Awake time!\r\n")
   });
+  
