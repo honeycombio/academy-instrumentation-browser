@@ -1,4 +1,3 @@
-[![OSS Lifecycle](https://img.shields.io/osslifecycle/honeycombio/academy-instrumentation-nodejs)](https://github.com/honeycombio/home/blob/main/honeycomb-oss-lifecycle-and-practices.md)
 
 # Honeycomb Academy: Sample Meminator App
 

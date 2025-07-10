@@ -85,9 +85,6 @@ services:
     build:
       context: services/react
       dockerfile: Dockerfile
-      platforms:
-        - linux/amd64
-        - linux/arm64
     image: react:latest
     ports:
       - "8081:80"
