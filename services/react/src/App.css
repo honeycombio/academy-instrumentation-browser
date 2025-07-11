@@ -1,42 +1,73 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body {
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-family: Roboto,serif
+}
+
+h1 {
+  font-family: 'Roboto Mono', Roboto,serif;
+}
+
+nav {
+  background-color: black;
+  padding-bottom: 1rem;
+}
+
+nav a {
+  color: orange;
+}
+
+button {
+  border: 5px solid orange;
+  background-color: #fff;
+  color: black;
+  border-radius: 15px;
+  padding: 10px 20px 10px 20px;
+  font-weight: 700;
+  font-size: 3rem;
+  font-family: 'Roboto Mono', Roboto, serif;
+}
+
+button:hover {
+  border: 5px solid white;
+  background-color: orange;
+  color: white;
+}
+
+button#self-meme {
+  margin-left: 2rem;
+}
+
+input#meme {
+  border: 5px solid orange;
+  background-color: #fff;
+  color: black;
+  border-radius: 15px;
+  height: 3rem;
+  padding: 10px 20px 10px 20px;
+  font-weight: 700;
+  font-size: 3rem;
+  font-family: 'Roboto Mono', Roboto, serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+div {
+  font-weight:bolder;
+  font-size: 1.2em;
+}
+
+div.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+img#loading-meme {
+  width: 250px;
 }

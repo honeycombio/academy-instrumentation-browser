@@ -21,11 +21,11 @@ export default function Meminator() {
 
   return (
     <div>
-      <h1>Meminator</h1>
-      <div>
+      <div className="block">
          <button onClick={handleClick}>GO</button>
       </div>
-      <div>
+      <div>&nbsp;</div>
+      <div className="block">
       { image && <img src={URL.createObjectURL(image)} alt="meme" /> }
       </div>
     </div>
