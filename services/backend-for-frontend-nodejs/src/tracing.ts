@@ -5,7 +5,8 @@ import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-proto";
 import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 import { resourceFromAttributes } from '@opentelemetry/resources'
 import { ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';
-import { ATTR_SERVICE_NAMESPACE, ATTR_SERVICE_INSTANCE_ID } from './semconv';
+// import { ATTR_SERVICE_NAMESPACE, ATTR_SERVICE_INSTANCE_ID } from './semconv';
+import {BatchSpanProcessor} from "@opentelemetry/sdk-trace-base";
 
 diag.setLogger(new DiagConsoleLogger(),DiagLogLevel.INFO);
 
@@ -18,7 +19,9 @@ const sdk = new NodeSDK({
             [ "service.instance.id" ]: "my-instance-id-1",
           }),
     traceExporter,
-    spanProcessors: [new ConfigurationSpanProcessor(), new BatchSpanProcessor(traceExporter)], // INSTRUMENTATION: report global configuration on every span
+    spanProcessors: [
+        // new ConfigurationSpanProcessor(),
+        new BatchSpanProcessor(traceExporter)], // INSTRUMENTATION: report global configuration on every span
     instrumentations: [getNodeAutoInstrumentations(
         { '@opentelemetry/instrumentation-fs': { enabled: true } } // the fs tracing might be interesting here!
     )]
