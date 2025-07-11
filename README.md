@@ -1,17 +1,17 @@
 
-# Honeycomb Academy: Sample Meminator App
+# Honeycomb Academy: Sample React Meminator App 
 
 ***This is a demo app, don't run it in production.***
 
-This contains a sample application for use in Honeycomb Academy lab activities. This app has 4 services.
+This contains a sample React application called Meminator for use in Honeycomb Academy lab activities. This app was converted from a backend Node.js web application into a dynamic React frontend that connects to 3 backend services.
 
-It generates images by combining a randomly chosen picture with a randomly chosen phrase.
+The app creates memes by combining randomly selected images with either randomly generated phrases or custom text that you provide.
 
 ## Introduction
 
 Hello! Welcome to the **Instrumenting with Browser** lab.
 
-1. Take a look at this app. The `backend-for-frontend` service needs to be instrumented.
+1. Take a look at this app. The React frontend needs to be instrumented.
 2. Before you can do that, you need to run this app.
 3. Then, connect this app to Honeycomb.
 4. See what the traces look like.
@@ -67,7 +67,7 @@ After making changes to a service, you can tell it to rebuild just that one:
 
 Visit [http://localhost:10114](http://localhost:10114)
 
-Click the "GO" button. Then wait.
+Click the "GO" button. Then wait. Click "CREATE YOUR OWN MEME" button. Type a phrase. Click the "GO" button. 
 
 ### Stop the app
 
