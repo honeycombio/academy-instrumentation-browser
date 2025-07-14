@@ -50,7 +50,6 @@ app.post("/createPicture", async (req: Request, res: Response) => {
       if (incomingPhraseText) {
         // TODO - yes, this is where the invalid request bug will created... bad unescaped data in the input
         phraseJSON = `{ "phrase": "${incomingPhraseText}" }`;
-        console.log(`Phrase JSON is: ${phraseJSON}`);
         const imageResponse = await fetchFromService("image-picker");
         imageJSON = imageResponse.ok ? await imageResponse.text() : "{}";
       } else {

@@ -22,11 +22,18 @@ app.post('/applyPhraseToPicture', async (req, res) => {
     try {
         const input = req.body;
         let { phrase: inputPhrase, imageUrl } = input;
+        if (/[!#$]/.test(inputPhrase)) {
+            throw new Error("Invalid Phrase, must contain no special characters such as (!#$)")
+        }
+
         span?.setAttributes({ // INSTRUMENTATION: record important things
             "app.meminator.phrase": inputPhrase, "app.meminator.imageUrl": imageUrl,
             "app.meminator.imageExtension": imageUrl ? path.extname(imageUrl) : "none"
         });
         const phrase = inputPhrase.toLocaleUpperCase();
+
+        // blow up if we have a special char in the request phrase
+
 
         // download the image, defaulting to a local image
         const inputImagePath = await download(imageUrl);
