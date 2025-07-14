@@ -1,5 +1,5 @@
 import './App.css'
-import Meminator from './pages/Meminator.tsx';
+import Meminator from './Meminator.tsx';
 
 function App() {
 
