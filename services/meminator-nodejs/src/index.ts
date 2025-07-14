@@ -22,7 +22,7 @@ app.post('/applyPhraseToPicture', async (req, res) => {
     try {
         const input = req.body;
         let { phrase: inputPhrase, imageUrl } = input;
-        if (/[!#$]/.test(inputPhrase)) {
+        if (inputPhrase && /[!#$]/.test(inputPhrase)) {
             throw new Error("Invalid Phrase, must contain no special characters such as (!#$)")
         }
 
