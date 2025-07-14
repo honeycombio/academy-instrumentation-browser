@@ -35,6 +35,11 @@ button:hover {
   color: white;
 }
 
+button:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
 button#self-meme {
   margin-left: 2rem;
 }
