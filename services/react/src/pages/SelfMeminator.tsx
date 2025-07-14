@@ -12,7 +12,7 @@ export default function SelfMeminator() {
   };
 
   const fetchMeme = async () => {
-    const response = await fetch('/api/createPictureWithSelfMeme', {
+    const response = await fetch('/api/createPicture', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
