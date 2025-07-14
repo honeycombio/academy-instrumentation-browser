@@ -29,8 +29,8 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # Copy nginx configuration file to the container
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose port 10114
-EXPOSE 10114
+# Expose port 10113
+EXPOSE 10113
 
 # Command to start nginx when container runs
 CMD ["nginx", "-g", "daemon off;"]
