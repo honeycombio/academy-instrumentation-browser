@@ -1,9 +1,9 @@
 
-# Honeycomb Academy: Sample React Meminator App 
+# Honeycomb Academy: Sample React MeminatorOld App 
 
 ***This is a demo app, don't run it in production.***
 
-This contains a sample React application called Meminator for use in Honeycomb Academy lab activities. This app was converted from a backend Node.js web application into a dynamic React frontend that connects to 3 backend services.
+This contains a sample React application called MeminatorOld for use in Honeycomb Academy lab activities. This app was converted from a backend Node.js web application into a dynamic React frontend that connects to 3 backend services.
 
 The app creates memes by combining randomly selected images with either randomly generated phrases or custom text that you provide.
 

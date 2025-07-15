@@ -71,7 +71,7 @@ services:
       dockerfile: Dockerfile
     image: react:latest
     ports:
-      - "8081:80"
+      - "10114:80"
 
   web:
     build:
@@ -87,6 +87,6 @@ services:
     #   - ./services/web/dist:/usr/share/nginx/html # Mount directory containing static files -- only do this for development
     ports:
       - "8080:80" # Expose port 8080 for Nginx
-      - "10114:10114"
+      - "10113:10113"
   
 
