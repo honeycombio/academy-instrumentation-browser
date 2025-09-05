@@ -1,70 +1,61 @@
+/** Manage a session in the browser using window.sessionStorage so that
+ * each launched tab gets its own storage and hence session.
+ */
+
+// constants
+export const EXPIRE_AFTER_MS = 1000 * 60 * 5;
+export const EXPIRE_AFTER_KEY = 'session.expireAfter';
+export const SESSION_KEY = 'session.id';
+
+// implementation
+
 /**
  * Get (and optionally re-generate) a sessionId UUID from the sessionStorage.
  * This is used by the HoneycombWebSDK in our main.ts file to
  * manage a session id for our browser session.
  *
  * The session time is hardcoded in this example to last no longer than
- * one hour without a call to `updateSessionExpiryDate` below. Once the
+ * 5 minutes without a call to `updateSessionExpiryDate` below. Once the
  * session expires, a new sessionId is generated and held in session
  * storage.
  *
  * Side effect: updates sessionId in sessionStorage when
  * generating a new sessionId.
  *
- * Side effect: the sessionExpiryDate key in localStorage is updated
+ * Side effect: the sessionExpiryDate key in sessionStorage is updated
  * whenever we expire a session (or if we generate it on the first
  * call of this method) by calling `updateSessionExpiryDate` below.
  */
-export function getSession() {
-    const sessionId = sessionStorage.getItem('session.id');
+export function getSession() : string {
+    const sessionId = window.sessionStorage.getItem('session.id');
 
-    let generateNewSessionId = false;
-
-    // for the first time in a browser tab - we'll need
-    // to create a new session id in session storage
-    if (!sessionId) {
-        generateNewSessionId = true;
-    }
-
-    // get our expiry date (in ISO format)
-    let sessionExpiryDate = sessionStorage.getItem('sessionExpiryDate');
-
-    // generate it if not found
-    if (!sessionExpiryDate) {
-        sessionExpiryDate = updateSessionExpiryDate();
-    }
-
-    // now, do a time diff calculation in ms to see how long
-    // we've been running since the expiry date
-    const oldDate = new Date(sessionExpiryDate).getTime();
-    const currentDate = new Date().getTime();
-    const timeBetweenInMS = currentDate - oldDate;
-
-    // if we've been active for greater than 5 minutes
-    // (1000ms x 60 seconds x 5 minutes),
-    // from the sessionExpiry date, we expire the session
-    if (timeBetweenInMS > (1000 * 60 * 5)) {
-        generateNewSessionId = true;
-    }
-
-    if (generateNewSessionId) {
+    // if either we don't have session.id or session.expireAfter in sessionStorage,
+    // or we've passed the threshold to expire the session, create a new session
+    // and set the expireAfter to now plus EXPIRE_AFTER_MS in time
+    if (!sessionId || isSessionExpired()) {
+        // create the session
         const newSessionId = crypto.randomUUID();
-        sessionStorage.setItem("session.id", newSessionId);
-        // also update the expiry date
-        updateSessionExpiryDate();
+        window.sessionStorage.setItem(SESSION_KEY, newSessionId)
+
+        // set the expiration time
+        updateExpireTime();
         return newSessionId;
-    } else {
-        return sessionId;
     }
+    return sessionId;
+}
+
+export function isSessionExpired(): boolean {
+    const expireAfter = window.sessionStorage.getItem(EXPIRE_AFTER_KEY);
+    return !expireAfter || Number.parseInt(expireAfter, 10) < Date.now()
 }
 
 /**
- * A function that causes our session expiry date to shift to the
- * current date/time, resetting the expiry time of the session, which
- * extends the life of a session.
+ * A function that sets an expiration time EXPIRE_AFTER_MS milliseconds in the future
+ * and stores it in `session.expireAfter` as a epoch-based number.
  */
-export function updateSessionExpiryDate() {
-    const expiryDate = new Date().toISOString();
-    sessionStorage.setItem('sessionExpiryDate', expiryDate);
-    return expiryDate;
+export function updateExpireTime(afterMS?: number) : number {
+    // if passed in (for testing), set the value sent. Otherwise expire by default setting
+    const expireAfterMS = Date.now() + (afterMS ? afterMS : EXPIRE_AFTER_MS);
+    window.sessionStorage.setItem(EXPIRE_AFTER_KEY, expireAfterMS.toString());
+    return expireAfterMS;
 }

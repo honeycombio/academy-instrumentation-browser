@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-// import {updateSessionExpiryDate, getSessionId} from './session-management.ts'
+// import {getSession, updateExpireTime} from './session-management.ts'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
