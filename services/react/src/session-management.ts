@@ -40,8 +40,10 @@ export function getSession() {
     const currentDate = new Date().getTime();
     const timeBetweenInMS = currentDate - oldDate;
 
-    // if greater than 1 hour we expire the session
-    if (timeBetweenInMS > (1000 * 60 * 60)) {
+    // if we've been active for greater than 5 minutes
+    // (1000ms x 60 seconds x 5 minutes),
+    // from the sessionExpiry date, we expire the session
+    if (timeBetweenInMS > (1000 * 60 * 5)) {
         generateNewSessionId = true;
     }
 
