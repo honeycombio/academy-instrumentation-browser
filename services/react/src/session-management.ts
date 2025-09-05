@@ -15,7 +15,7 @@
  * whenever we expire a session (or if we generate it on the first
  * call of this method) by calling `updateSessionExpiryDate` below.
  */
-export function getSessionId() {
+export function getSession() {
     const sessionId = sessionStorage.getItem('sessionId');
 
     let generateNewSessionId = false;
