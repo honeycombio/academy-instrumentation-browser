@@ -16,7 +16,7 @@
  * call of this method) by calling `updateSessionExpiryDate` below.
  */
 export function getSession() {
-    const sessionId = sessionStorage.getItem('sessionId');
+    const sessionId = sessionStorage.getItem('session.id');
 
     let generateNewSessionId = false;
 
@@ -47,7 +47,7 @@ export function getSession() {
 
     if (generateNewSessionId) {
         const newSessionId = crypto.randomUUID();
-        sessionStorage.setItem("sessionId", newSessionId);
+        sessionStorage.setItem("session.id", newSessionId);
         // also update the expiry date
         updateSessionExpiryDate();
         return newSessionId;
