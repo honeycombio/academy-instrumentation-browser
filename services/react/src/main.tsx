@@ -19,7 +19,6 @@ const sdk = new HoneycombWebSDK({
     ]
 });
 sdk.start();
-// React createRoot goes here
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
