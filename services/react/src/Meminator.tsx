@@ -1,4 +1,7 @@
 import { useState } from "react";
+// To extend active sessions based on our session definition: First, we have to import the `updateExpireTime` function from the `session-management.ts`.
+// We're importing it here because this is where the "GO" button is.
+import {updateExpireTime} from './session-management';
 
 export default function Meminator() {
 
@@ -8,6 +11,9 @@ export default function Meminator() {
   
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    // Then, we call the `updateExpireTime` function when the "GO" button is clicked to extend the session expiration time.
+    // After defining sessions, rerun the app in the root directory. Then see the defined sessions in Honeycomb.
+    updateExpireTime();
     fetchMeme();
   };
 
