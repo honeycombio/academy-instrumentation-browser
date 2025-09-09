@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@honeycombio/opentelemetry-web": "^1.0.2",
+    "@opentelemetry/auto-instrumentations-web": "^0.50.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
