@@ -16,7 +16,7 @@ const sdk = new HoneycombWebSDK({
     serviceName: 'react',
     instrumentations: [
         getWebAutoInstrumentations()
-    ]
+    ],
 });
 sdk.start();
 
