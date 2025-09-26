@@ -13,9 +13,10 @@ const sdk = new HoneycombWebSDK({
     instrumentations: [
         getWebAutoInstrumentations()
     ],
+    // specify extra attributes through the resourceAttributes configuration option
     resourceAttributes: { // Data in this object is applied to every trace emitted.
     "feature_flag.key": "ALLOW_USER_QUESTIONS", // Specific to your app.
-    "feature_flag.result.variant": features.ALLOW_USER_QUESTIONS, // Specific to your app.// specify extra attributes through the resourceAttributes configuration option
+    "feature_flag.result.variant": features.ALLOW_USER_QUESTIONS, // Specific to your app.
     },
   });
 sdk.start();
