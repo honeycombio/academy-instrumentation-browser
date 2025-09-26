@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {features} from './features';
+import {updateExpireTime} from './session-management'; // import the updateExpireTime function from the session-management.ts script
 
 export default function Meminator() {
 
@@ -9,6 +10,7 @@ export default function Meminator() {
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
+        updateExpireTime(); // call the function
         fetchMeme();
     };
 
